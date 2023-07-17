@@ -1,0 +1,30 @@
+<div class="currency-converter">
+  <form [formGroup]="conversionForm">
+    <div class="form-row">
+      <label for="fromCurrency">From</label>
+      <select id="fromCurrency"
+        formControlName="currencyFrom"
+        (change)="convertCurrency()">
+        <option *ngFor="let currency of currencies"
+          [value]="currency">{{ currency }}</option>
+      </select>
+      <input type="number" formControlName="fromAmount" />
+    </div>
+
+    <div class="switcher">
+      <button (click)="switchCurrencies()"
+        aria-label="Switch currencies">
+      </button>
+    </div>
+
+    <div class="form-row">
+      <label for="toCurrency">To</label>
+      <select id="toCurrency" formControlName="currencyTo"
+        (change)="convertCurrency()">
+        <option *ngFor="let currency of currencies"
+          [value]="currency">{{ currency }}</option>
+      </select>
+      <input type="number" formControlName="toAmount" />
+    </div>
+  </form>
+</div>

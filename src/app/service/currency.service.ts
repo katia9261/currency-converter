@@ -26,4 +26,21 @@ export class CurrencyService {
         })
       );
   }
+
+  getConvertedAmount(
+    from: string,
+    to: string,
+    amount: number
+  ): Observable<any> {
+    return this.http
+      .get(
+        `${this.url}/convert?from=${from}&to=${to}&amount=${amount}&places${this.symbolsAfterComma}`
+      )
+      .pipe(
+        catchError((error) => {
+          console.error('Error occurred while converting currency:', error);
+          return throwError(error);
+        })
+      );
+  }
 }
