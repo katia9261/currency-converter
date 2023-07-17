@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './main/header/header.component';
@@ -8,7 +9,7 @@ import { CurrencyService } from './service/currency.service';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, CurrencyConverterComponent],
-  imports: [BrowserModule],
+  imports: [BrowserModule, HttpClientModule],
   providers: [CurrencyService],
   bootstrap: [AppComponent],
 })
