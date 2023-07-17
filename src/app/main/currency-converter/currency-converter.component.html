@@ -5,10 +5,11 @@
       <select id="fromCurrency"
         formControlName="currencyFrom"
         (change)="convertCurrency()">
-        <option *ngFor="let currency of currencies"
+        <option *ngFor="let currency of availableCurrencies"
           [value]="currency">{{ currency }}</option>
       </select>
-      <input type="number" formControlName="fromAmount" />
+      <input type="number" formControlName="fromAmount"
+        placeholder="0" />
     </div>
 
     <div class="switcher">
@@ -21,10 +22,11 @@
       <label for="toCurrency">To</label>
       <select id="toCurrency" formControlName="currencyTo"
         (change)="convertCurrency()">
-        <option *ngFor="let currency of currencies"
+        <option *ngFor="let currency of availableCurrencies"
           [value]="currency">{{ currency }}</option>
       </select>
-      <input type="number" formControlName="toAmount" />
+      <input type="number" formControlName="toAmount"
+        placeholder="0" />
     </div>
   </form>
 </div>

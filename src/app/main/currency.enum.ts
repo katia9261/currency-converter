@@ -3,4 +3,6 @@ export enum CurrencySymbol {
   USD = 'USD',
   EUR = 'EUR',
   PLN = 'PLN',
+  CZK = 'CZK',
+  GBP = 'GBP',
 }

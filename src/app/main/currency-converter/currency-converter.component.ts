@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CurrencyService } from 'src/app/service/currency.service';
 import { CurrencySymbol } from '../currency.enum';
 import { merge } from 'rxjs';
@@ -10,18 +10,11 @@ import { merge } from 'rxjs';
   styleUrls: ['./currency-converter.component.scss'],
 })
 export class CurrencyConverterComponent implements OnInit {
-  public currencies: CurrencySymbol[] = [
-    CurrencySymbol.UAH,
-    CurrencySymbol.USD,
-    CurrencySymbol.EUR,
-    CurrencySymbol.PLN,
-  ];
+  public availableCurrencies: CurrencySymbol[] = Object.values(CurrencySymbol);
+
   public conversionForm: FormGroup;
 
-  constructor(
-    private currencyService: CurrencyService,
-    private formBuilder: FormBuilder
-  ) {}
+  constructor(private currencyService: CurrencyService) {}
 
   get currencyFrom() {
     return this.conversionForm.get('currencyFrom');
@@ -40,54 +33,44 @@ export class CurrencyConverterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.conversionForm = this.formBuilder.group({
-      currencyFrom: [CurrencySymbol.UAH],
-      currencyTo: [CurrencySymbol.EUR],
-      fromAmount: [0],
-      toAmount: [0],
+    this.conversionForm = new FormGroup({
+      currencyFrom: new FormControl(CurrencySymbol.UAH),
+      currencyTo: new FormControl(CurrencySymbol.EUR),
+      fromAmount: new FormControl('', [
+        Validators.minLength(0),
+        Validators.maxLength(12),
+      ]),
+      toAmount: new FormControl('', [
+        Validators.minLength(0),
+        Validators.maxLength(12),
+      ]),
     });
+    this.fromAmount.valueChanges.subscribe(() => this.convertCurrency());
 
-    this.fromAmount.valueChanges.subscribe(() => {
-      this.convertCurrency();
-    });
-
-    this.toAmount.valueChanges.subscribe(() => {
-      this.convertCurrency(true);
-    });
+    this.toAmount.valueChanges.subscribe(() => this.convertCurrency(true));
   }
 
   convertCurrency(toAmountChanged: boolean = false): void {
     const { currencyFrom, currencyTo, fromAmount, toAmount } =
       this.conversionForm.value;
+    const fromCurrency = toAmountChanged ? currencyTo : currencyFrom;
+    const toCurrency = toAmountChanged ? currencyFrom : currencyTo;
+    const amount = toAmountChanged ? toAmount : fromAmount;
 
     if (!fromAmount && !toAmount) {
-      this.conversionForm.patchValue({ toAmount: 0 }, { emitEvent: false });
       return;
     }
 
-    if (toAmountChanged) {
-      this.currencyService
-        .getConvertedAmount(currencyTo, currencyFrom, toAmount)
-        .subscribe((convertedAmount) => {
-          console.log('convertedAmount to', convertedAmount);
+    this.currencyService
+      .getConvertedAmount(fromCurrency, toCurrency, amount)
+      .subscribe((convertedAmount) => {
+        const valueToUpdate = toAmountChanged ? 'fromAmount' : 'toAmount';
 
-          this.conversionForm.patchValue(
-            { fromAmount: convertedAmount.result },
-            { emitEvent: false }
-          );
-        });
-    } else {
-      this.currencyService
-        .getConvertedAmount(currencyFrom, currencyTo, fromAmount)
-        .subscribe((convertedAmount) => {
-          console.log('convertedAmount from', convertedAmount);
-
-          this.conversionForm.patchValue(
-            { toAmount: convertedAmount.result },
-            { emitEvent: false }
-          );
-        });
-    }
+        this.conversionForm.patchValue(
+          { [valueToUpdate]: convertedAmount.result },
+          { emitEvent: false }
+        );
+      });
   }
 
   switchCurrencies(): void {
