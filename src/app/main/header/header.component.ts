@@ -3,6 +3,7 @@ import { CurrencyService } from 'src/app/service/currency.service';
 import { forkJoin, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CurrencySymbol } from '../currency.enum';
+import { GetCurrentRates } from './../currency.interface';
 
 @Component({
   selector: 'app-header',
@@ -25,10 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     forkJoin(requests)
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(
-        (responses) => {
-          console.log('usd data', responses[0]);
-          console.log('eur data', responses[1]);
-
+        (responses: GetCurrentRates[]) => {
           this.usdToUah = responses[0].rates.UAH;
           this.eurToUah = responses[1].rates.UAH;
         },

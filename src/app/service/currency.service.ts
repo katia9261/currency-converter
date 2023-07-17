@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CurrencySymbol } from '../main/currency.enum';
+import { GetCurrentRates } from '../main/currency.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,9 @@ export class CurrencyService {
 
   constructor(private http: HttpClient) {}
 
-  getExchangeRates(currency: string): Observable<any> {
+  getExchangeRates(currency: string): Observable<GetCurrentRates> {
     return this.http
-      .get(
+      .get<GetCurrentRates>(
         `${this.url}/latest?base=${currency}&symbols=${CurrencySymbol.UAH}&places=${this.symbolsAfterComma}`
       )
       .pipe(
