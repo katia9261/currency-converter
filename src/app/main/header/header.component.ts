@@ -13,6 +13,7 @@ import { GetCurrentRates } from './../currency.interface';
 export class HeaderComponent implements OnInit, OnDestroy {
   public usdToUah: number;
   public eurToUah: number;
+  public CurrencySymbol = CurrencySymbol;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private currencyService: CurrencyService) {}

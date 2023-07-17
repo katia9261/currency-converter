@@ -1,4 +1,22 @@
-<div class="header">
-  <p>UAH to USD: {{usdToUah}}</p>
-  <p>UAH to EUR: {{eurToUah}}</p>
+<div class="header" role="banner"
+  aria-label="Welcome to header">
+  <div class="base-currency">
+    <img src="assets/uk-flag.png" alt="UA Flag" />
+  </div>
+  <div class="current-currency">
+    <div class="flag-container">
+      <img src="assets/us-flag.png" alt="US Flag" />
+      <p>{{ CurrencySymbol.USD }}</p>
+    </div>
+    <p class="currency-value">{{ usdToUah | number:'1.3-3'}}
+    </p>
+  </div>
+  <div class="current-currency">
+    <div class="flag-container">
+      <img src="assets/eu-flag.png" alt="EU Flag" />
+      <p>{{ CurrencySymbol.EUR }}</p>
+    </div>
+    <p class="currency-value">{{ eurToUah | number:'1.3-3'
+      }}</p>
+  </div>
 </div>

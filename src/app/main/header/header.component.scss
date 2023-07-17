@@ -1,0 +1,46 @@
+.header {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1.5px solid #CCCCCC;
+
+  .base-currency img {
+    height: 40px;
+  }
+
+  .current-currency {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    .flag-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        height: 20px;
+      }
+    }
+
+    .currency-value {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+
+  @media (min-width: 320px) and (max-width: 480px) {
+    .base-currency img {
+      height: 30px;
+    }
+
+    .current-currency .currency-value {
+      font-size: 20px;
+    }
+  }
+}
