@@ -10,7 +10,7 @@ import { GetCurrentRates } from '../main/currency.interface';
 })
 export class CurrencyService {
   private url = 'https://api.exchangerate.host';
-  private symbolsAfterComma = 4;
+  private symbolsAfterComma = 3;
 
   constructor(private http: HttpClient) {}
 
@@ -34,7 +34,7 @@ export class CurrencyService {
   ): Observable<any> {
     return this.http
       .get(
-        `${this.url}/convert?from=${from}&to=${to}&amount=${amount}&places${this.symbolsAfterComma}`
+        `${this.url}/convert?from=${from}&to=${to}&amount=${amount}&places=${this.symbolsAfterComma}`
       )
       .pipe(
         catchError((error) => {

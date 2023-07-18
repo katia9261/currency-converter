@@ -61,7 +61,7 @@ describe('CurrencyService', () => {
     const req = httpMock.expectOne(
       `${
         (service as any).url
-      }/convert?from=${from}&to=${to}&amount=${amount}&places${
+      }/convert?from=${from}&to=${to}&amount=${amount}&places=${
         (service as any).symbolsAfterComma
       }`
     );
