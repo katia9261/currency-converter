@@ -1,27 +1,38 @@
-# CurrencyConverter
+# Currency Converter SPA
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.15.
+This application is a simple currency converter built with Angular. It uses the [ExchangeRate.host](https://exchangerate.host/#/) public API for currency conversion.
 
-## Development server
+## Demo Video
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+![Demo](./converter_demo_protsenko.gif).
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Features
 
-## Build
+- **Currency Rate Display**: The application header displays the current exchange rate for USD and EUR in relation to UAH.
+  
+- **Currency Conversion Component**: The application provides two input fields along with a corresponding select field for each currency. The input field allows users to specify the amount of currency to be converted. The select field allows users to choose one of some currencies: UAH, USD, EUR, and more.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+- **Two-way Conversion**: The application supports two-way conversion. If the amount in the first currency input is changed, the corresponding amount in the second currency is recalculated, and vice versa. Similarly, changing the currency in any select field triggers a recalculation of the conversion for both currencies.
 
-## Running unit tests
+## Additional Features
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Responsive Design**: The application is mobile-ready and adjusts seamlessly to different screen sizes for optimal viewing and interaction.
+  
+- **Accessibility**: The application is built with accessibility considerations in mind.
 
-## Running end-to-end tests
+- **Unit Tests**: The application includes a set of unit tests to verify its functionality and reliability.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+- **Pleasant UI**: The application features a user-friendly interface.
 
-## Further help
+- **Clean Code**: The codebase is clean and well-organized, following best practices for maintainability and readability.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Getting Started
+
+To run this application:
+
+1. Clone the repository.
+2. Run `npm install` to install the dependencies.
+3. Run `ng serve` to start a dev server. Navigate to `http://localhost:4200/` in your browser. The app will automatically reload if you change any of the source files.
+4. Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
