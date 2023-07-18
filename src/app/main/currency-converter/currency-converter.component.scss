@@ -3,6 +3,12 @@
   justify-content: center;
   height: calc(100vh - 160px);
   align-content: center;
+  flex-direction: column;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 60px;
+  }
 
   form {
     height: 70%;
@@ -11,26 +17,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 0 auto;
     gap: 100px;
     background-color: #f5f5f5;
 
-    .form-row {
+    .form-column {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 15px;
-
-      label {
-        margin-right: 10px;
-      }
 
       .select-wrapper {
         position: relative;
       }
 
       input[type="number"] {
-        width: 200px;
+        width: 260px;
         height: 100px;
         padding: 8px;
         font-size: 30px;
@@ -47,41 +49,63 @@
           border: none;
           border-bottom: 1.5px solid #CCCCCC;
         }
+
+        &.ng-invalid.ng-touched {
+          border-bottom: 1px solid #B22222;
+        }
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+        }
       }
 
-      input.ng-invalid.ng-touched {
-        border-bottom: 1px solid red;
-      }
-
-      input[type='number']::-webkit-outer-spin-button,
-      input[type='number']::-webkit-inner-spin-button {
-        -webkit-appearance: none;
+      .error-message {
+        color: #B22222;
       }
     }
 
     .switcher {
       button {
         padding: 8px 16px;
+        margin: 0 20px;
         font-size: 16px;
         background-color: #f2f2f2;
         border: none;
-        border-radius: 4px;
+        border-radius: 18px;
+        box-shadow: 8px 8px 15px #d3d3d3, -8px -8px 15px #ffffff;
         cursor: pointer;
+        transition: background 1s, box-shadow 1s;
 
         img {
           height: 40px;
+        }
+
+        &:hover {
+          background: linear-gradient(145deg, #dadada, #ffffff);
+          box-shadow: 8px 8px 15px #d3d3d3, -8px -8px 15px #ffffff;
+        }
+
+        &:active {
+          box-shadow: inset 8px 8px 15px #d3d3d3, inset -8px -8px 15px #ffffff;
         }
       }
     }
   }
 
-  @media (min-width: 768px) and (max-width: 992px) {
+  @media (min-width: 992px) and (max-width: 1439px) {
     form {
-      width: 80%;
+      width: 90%;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+    form {
+      width: 90%;
       gap: 50px;
 
-      input[type="number"] {
-        width: 100px;
+      .form-column input[type="number"] {
+        width: 90px;
         height: 70px;
       }
     }
@@ -93,18 +117,14 @@
       height: 90%;
       gap: 20px;
 
-      input[type="number"] {
-        width: 50px;
+      .form-column input[type="number"] {
+        width: 190px;
         height: 35px;
       }
 
-      .switcher {
-        button {
-          img {
-            height: 25px;
-            transform: rotate(90deg);
-          }
-        }
+      .switcher button img {
+        height: 25px;
+        transform: rotate(90deg);
       }
     }
   }

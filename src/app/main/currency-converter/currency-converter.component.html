@@ -1,6 +1,7 @@
 <div class="currency-converter">
+  <h1>Currency Converter</h1>
   <form [formGroup]="conversionForm">
-    <div class="form-row">
+    <div class="form-column">
       <label for="fromCurrency">From Currency</label>
       <div role="combobox" class="select-wrapper">
         <mat-form-field appearance="outline">
@@ -10,20 +11,19 @@
             (selectionChange)="convertCurrency()">
             <mat-option
               *ngFor="let currency of availableCurrencies"
-              [value]="currency">{{ currency }}</mat-option>
+              [value]="currency">{{ currency
+              }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
       <input type="number" formControlName="fromAmount"
-        placeholder="0" max="12"
+        placeholder="0" max="10"
         aria-describedby="fromCurrencyAmountDesc" />
       <div
         *ngIf="fromAmount.invalid && (fromAmount.dirty || fromAmount.touched)"
         class="error-message">
         {{ getErrorMessage('fromAmount') }}
       </div>
-
-
     </div>
 
     <div class="switcher">
@@ -32,7 +32,7 @@
           src="assets/exchange.png" /></button>
     </div>
 
-    <div class="form-row">
+    <div class="form-column">
       <label for="toCurrency">To Currency</label>
       <div role="combobox" class="select-wrapper">
         <mat-form-field appearance="outline">
@@ -42,7 +42,8 @@
             (selectionChange)="convertCurrency()">
             <mat-option
               *ngFor="let currency of availableCurrencies"
-              [value]="currency">{{ currency }}</mat-option>
+              [value]="currency">{{ currency
+              }}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
