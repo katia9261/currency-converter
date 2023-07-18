@@ -52,8 +52,8 @@ describe('CurrencyConverterComponent', () => {
   });
 
   it('should update conversionForm values when currencyFrom or currencyTo changes', () => {
-    component.currencyFrom.setValue('USD');
-    component.currencyTo.setValue('GBP');
+    component.conversionForm.get('currencyFrom').setValue('USD');
+    component.conversionForm.get('currencyTo').setValue('GBP');
 
     expect(component.conversionForm.value).toEqual({
       currencyFrom: 'USD',
@@ -64,8 +64,8 @@ describe('CurrencyConverterComponent', () => {
   });
 
   it('should switch currencies and convert currency', () => {
-    component.currencyFrom.setValue('USD');
-    component.currencyTo.setValue('GBP');
+    component.conversionForm.get('currencyFrom').setValue('USD');
+    component.conversionForm.get('currencyTo').setValue('GBP');
     component.switchCurrencies();
 
     expect(component.conversionForm.value).toEqual({
