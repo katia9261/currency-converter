@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CurrencyService } from 'src/app/service/currency.service';
 import { CurrencySymbol } from '../currency.enum';
+import { LimitsValidator } from '../empty-validator';
 import { merge } from 'rxjs';
 
 @Component({
@@ -15,6 +16,13 @@ export class CurrencyConverterComponent implements OnInit {
   public conversionForm: FormGroup;
 
   constructor(private currencyService: CurrencyService) {}
+
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === '-') {
+      event.preventDefault();
+    }
+  }
 
   get currencyFrom() {
     return this.conversionForm.get('currencyFrom');
@@ -37,17 +45,36 @@ export class CurrencyConverterComponent implements OnInit {
       currencyFrom: new FormControl(CurrencySymbol.UAH),
       currencyTo: new FormControl(CurrencySymbol.EUR),
       fromAmount: new FormControl('', [
-        Validators.minLength(0),
-        Validators.maxLength(12),
+        Validators.min(0),
+        LimitsValidator.maxLength(12),
+        LimitsValidator.cannotBeEmpty,
       ]),
       toAmount: new FormControl('', [
-        Validators.minLength(0),
-        Validators.maxLength(12),
+        Validators.min(0),
+        LimitsValidator.maxLength(12),
+        LimitsValidator.cannotBeEmpty,
       ]),
     });
-    this.fromAmount.valueChanges.subscribe(() => this.convertCurrency());
 
+    this.fromAmount.valueChanges.subscribe(() => this.convertCurrency());
     this.toAmount.valueChanges.subscribe(() => this.convertCurrency(true));
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.conversionForm.get(controlName);
+    if (control?.errors) {
+      for (const errorName in control.errors) {
+        switch (errorName) {
+          case 'cannotBeEmpty':
+            return 'Value cannot be 0';
+          case 'maxLength':
+            return 'Value cannot exceed 12 characters';
+          default:
+            return '';
+        }
+      }
+    }
+    return '';
   }
 
   convertCurrency(toAmountChanged: boolean = false): void {
